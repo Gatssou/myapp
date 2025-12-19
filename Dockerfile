@@ -23,7 +23,6 @@ COPY . .
 RUN cp .env.example .env
 
 # 6️⃣ Définir des variables temporaires pour le build
-# Cela évite d'accéder à la DB pour cache/session
 ENV CACHE_DRIVER=file
 ENV SESSION_DRIVER=file
 ENV APP_ENV=production
