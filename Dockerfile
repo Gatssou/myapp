@@ -7,7 +7,9 @@ RUN apt-get update && apt-get install -y \
     unzip \
     git \
     curl \
-    && docker-php-ext-install pdo pdo_mysql zip
+    libpq-dev \
+    libonig-dev \
+    && docker-php-ext-install pdo pdo_pgsql mbstring zip
 
 # 3️⃣ Installer Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
@@ -20,7 +22,7 @@ COPY . .
 RUN composer install --optimize-autoloader --no-dev
 
 # 6️⃣ Générer la clé Laravel (APP_KEY)
-RUN php artisan key:generate
+RUN php artisan key:generate --ansi
 
 # 7️⃣ Exposer le port que Render utilisera
 EXPOSE 10000
