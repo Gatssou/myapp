@@ -26,6 +26,9 @@ RUN composer install --optimize-autoloader --no-dev
 RUN npm install
 RUN npm run build
 
+# Créer un .env temporaire pour le build
+RUN cp .env.example .env
+
 # 8️⃣ Clear cache Laravel et permissions
 RUN php artisan config:clear \
     && php artisan cache:clear \
