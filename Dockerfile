@@ -19,20 +19,26 @@ WORKDIR /var/www/html
 COPY . .
 
 # 5️⃣ Copier le fichier .env si nécessaire
-# Si ton .env existe déjà, Laravel peut l'utiliser directement
-# Sinon, tu peux copier .env.example en .env :
-# RUN cp .env.example .env
+# Si tu ne veux pas copier ton vrai .env, utilise .env.example
+RUN cp .env.example .env
 
-# 6️⃣ Installer les dépendances PHP Laravel
+# 6️⃣ Définir des variables temporaires pour le build
+# Cela évite d'accéder à la DB pour cache/session
+ENV CACHE_DRIVER=file
+ENV SESSION_DRIVER=file
+ENV APP_ENV=production
+ENV APP_DEBUG=false
+
+# 7️⃣ Installer les dépendances PHP Laravel
 RUN composer install --optimize-autoloader --no-dev
 
-# 7️⃣ Nettoyer le cache et générer la clé Laravel
+# 8️⃣ Nettoyer le cache et générer la clé Laravel
 RUN php artisan config:clear
 RUN php artisan cache:clear
 RUN php artisan key:generate --ansi
 
-# 8️⃣ Exposer le port que Render utilisera
+# 9️⃣ Exposer le port que Render utilisera
 EXPOSE 10000
 
-# 9️⃣ Commande pour démarrer le serveur Laravel
+# 🔟 Commande pour démarrer le serveur Laravel
 CMD php artisan serve --host 0.0.0.0 --port 10000
