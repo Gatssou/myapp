@@ -18,14 +18,21 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 WORKDIR /var/www/html
 COPY . .
 
-# 5️⃣ Installer les dépendances PHP Laravel
+# 5️⃣ Copier le fichier .env si nécessaire
+# Si ton .env existe déjà, Laravel peut l'utiliser directement
+# Sinon, tu peux copier .env.example en .env :
+# RUN cp .env.example .env
+
+# 6️⃣ Installer les dépendances PHP Laravel
 RUN composer install --optimize-autoloader --no-dev
 
-# 6️⃣ Générer la clé Laravel (APP_KEY)
+# 7️⃣ Nettoyer le cache et générer la clé Laravel
+RUN php artisan config:clear
+RUN php artisan cache:clear
 RUN php artisan key:generate --ansi
 
-# 7️⃣ Exposer le port que Render utilisera
+# 8️⃣ Exposer le port que Render utilisera
 EXPOSE 10000
 
-# 8️⃣ Commande pour démarrer le serveur Laravel
+# 9️⃣ Commande pour démarrer le serveur Laravel
 CMD php artisan serve --host 0.0.0.0 --port 10000
