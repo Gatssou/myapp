@@ -6,7 +6,7 @@
 <div class="min-h-screen flex items-center justify-center bg-gray-100">
 <div class="max-w-lg mx-auto p-6 bg-white rounded-lg shadow-md">
 
-    @if(session('sucess'))
+    @if(session('success'))
      <div class="class bg-red-100 border border-green-400 text-green-700 px-4 py-3 rounded-relative" role="alert">
 
       <strong class="class font-bold">Success !</strong>
@@ -17,7 +17,7 @@
 
         <form action="{{ route('registration.register') }}" method="POST" class="mt-6">
             @csrf
-            <div class="mb4">
+            <div class="mb-4">
                 <label for="name" class="block text-sm font-medium text-gray-700">nom</label>
 <input type="text" class="mt-1 p-3 block w-full border-gray-300 outline-none rounded-md shadow-md" id="name" name="name" value="{{ old('name') }}">
                  
@@ -25,7 +25,7 @@
 <span class="text-red-500 text-sm">{{ $message }}</span>
                 @enderror
             </div>
-            <div class="mb4">
+            <div class="mb-4">
                 <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
 <input type="email" class="mt-1 p-3 block w-full border-gray-300 outline-none rounded-md shadow-md" id="email" name="email" value="{{ old('email') }}">
                  
@@ -35,14 +35,14 @@
             </div>
 
 
-            <div class="mb4">
+            <div class="mb-4">
                 <label for="password" class="block text-sm font-medium text-gray-700">Mot de passe</label>
-<input type="password" class="mt-1 p-3 block w-full border-gray-300 outline-none rounded-md shadow-md" id="password" name="password" value="{{ old('password') }}">
+<input type="password" class="mt-1 p-3 block w-full border-gray-300 outline-none rounded-md shadow-md" id="password" name="password"> 
                 @error('password')
 <span class="text-red-500 text-sm">{{ $message }}</span>
                 @enderror
             </div>
-            <div class="mb4">
+            <div class="mb-4">
                 <label for="password_confirmation" class="block text-sm font-medium text-gray-700">confirmer votre mot de passe</label>
 <input type="password" class="mt-1 p-3 block w-full border-gray-300 outline-none rounded-md shadow-md" id="password_confirmation" name="password_confirmation">
              

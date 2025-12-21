@@ -50,7 +50,7 @@ class AuthConller extends Controller
 
 Mail::to($user->email)->send(new WelcomeEmail($user));
 
-        return back()->with('succes', 'You have signed up sucessfully.');
+        return back()->with('success', 'You have signed up sucessfully.');
     }
 
     public function logout(Request $request){
