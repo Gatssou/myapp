@@ -27,7 +27,7 @@
                     @endauth
                     @endif
                 </nav>
-  <h1>hello  world</h1>
+  <h1>Je suis un méchant Site</h1>
 
 <section class="top_postshome py-5">
     <div class="container-fluid px-0">
