@@ -24,10 +24,20 @@ RUN npm run build
 # Installer PHP deps
 RUN composer install --no-dev --optimize-autoloader
 
+# Clear cache Laravel et préparer app
+RUN php artisan config:clear \
+    && php artisan cache:clear \
+    && php artisan route:clear \
+    && php artisan view:clear
+
+# Appliquer migrations
+RUN php artisan migrate --force
+
 # Permissions
 RUN chmod -R 775 storage bootstrap/cache
 
-EXPOSE 10000
+# Exposer le port par défaut de PHP-FPM
+EXPOSE 9000
 
-CMD php artisan migrate --force && \
-    php artisan serve --host=0.0.0.0 --port=10000
+# Lancer PHP-FPM en foreground (Render gère le proxy HTTP)
+CMD ["php-fpm"]
