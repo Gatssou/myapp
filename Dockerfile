@@ -28,21 +28,16 @@ RUN npm run build
 # Installer les dépendances PHP
 RUN composer install --no-dev --optimize-autoloader
 
-# Clear cache Laravel
-# Clear cache Laravel **safe** sans toucher à la DB
+# Clear cache Laravel **safe** (pas de DB touchée)
 RUN php artisan config:clear \
-    && php artisan cache:clear \
     && php artisan route:clear \
     && php artisan view:clear
 
-# Appliquer les migrations PostgreSQL
-RUN php artisan migrate --force
-
-# Permissions sur storage et cache
+# Permissions sur storage et bootstrap/cache
 RUN chmod -R 775 storage bootstrap/cache
 
-# Exposer le port PHP-FPM attendu par Render
-EXPOSE 9000
+# Exposer un port HTTP que Render peut détecter
+EXPOSE 10000
 
-# Lancer PHP-FPM en foreground
-CMD ["php-fpm"]
+# Lancer Laravel en mode serveur intégré pour le déploiement Render Free
+CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=10000"]
