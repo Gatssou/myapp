@@ -43,8 +43,11 @@
     <title>Site Minimaliste</title>
  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
+    @vite('resources/js/app.js')
 </head>
 <body class="flex flex-col min-h-screen">
+    {{-- Loader --}}
+    <x-loader />
     <!-- Navbar -->
     <nav class="bg-white shadow-md p-4">
         <div class="container mx-auto flex justify-between items-center">
