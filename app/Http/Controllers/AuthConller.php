@@ -48,7 +48,7 @@ class AuthConller extends Controller
             'password' => Hash::make($request->password)
         ]);
 
-Mail::to($user->email)->send(new WelcomeEmail($user));
+//Mail::to($user->email)->send(new WelcomeEmail($user));
 
         return back()->with('success', 'You have signed up sucessfully.');
     }
